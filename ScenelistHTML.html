@@ -4,98 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scenelist</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            color: #343a40;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 700px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-        .menu {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1000;
-        }
-        .menu:hover {
-            background-color: #0056b3;
-        }
-        .menu-content {
-            display: none;
-            position: absolute;
-            top: 40px;
-            left: 10px;
-            background-color: #ffffff;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            z-index: 1001;
-        }
-        .menu-content a {
-            display: block;
-            margin: 5px 0;
-            color: #007bff;
-            text-decoration: none;
-            font-size: 1.1em;
-        }
-        .menu-content a:hover {
-            text-decoration: underline;
-        }
-        h1 {
-            text-align: center;
-            color: #343a40;
-            margin-bottom: 20px;
-            font-size: 2em;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-        }
-        input {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        li {
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        li:hover {
-            background-color: #f1f1f1;
-            transform: scale(1.01);
-        }
-        .description {
-            color: #6c757d;
-            font-size: 0.95em;
-            margin-top: 5px;
-        }
-        strong {
-            font-size: 1.1em;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="menu" onclick="toggleMenu()">Menu</div>
@@ -194,36 +103,6 @@
             </li>
         </ul>
     </div>
-    <script>
-        function filterMovies() {
-            const genreInput = document.getElementById('genreInput').value.toLowerCase();
-            const movies = document.querySelectorAll('#movieList li');
-            const genres = new Set();
-
-            movies.forEach(movie => {
-                const genre = movie.getAttribute('data-genre').toLowerCase();
-                if (genre.includes(genreInput)) {
-                    genres.add(movie.getAttribute('data-genre'));
-                }
-            });
-
-            movies.forEach(movie => {
-                if (genres.has(movie.getAttribute('data-genre'))) {
-                    movie.style.display = '';
-                } else {
-                    movie.style.display = 'none';
-                }
-            });
-        }
-
-        function scrollToTOC() {
-            document.getElementById('toc').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function toggleMenu() {
-            const menuContent = document.getElementById('menuContent');
-            menuContent.style.display = menuContent.style.display === 'none' || menuContent.style.display === '' ? 'block' : 'none';
-        }
-    </script>
+    <script src="scripts.js"></script>
 </body>
 </html>
