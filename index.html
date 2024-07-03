@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookBound - Pencarian Genre Buku</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: "Ubuntu", sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            background-color: #131313;
+            width: 260px;
+            padding: 24px;
+            display: flex;
+            box-sizing: border-box;
+            flex-direction: column;
+        }
+        .main-content {
+            background-color: #EEEEEE;
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .sidebar .description-header {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 16px;
+            text-align: center;
+            color: #EEEEEE;
+        }
+        .sidebar a {
+            text-decoration: none;
+        }
+        .sidebar .header .list-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 12px 10px;
+            border-radius: 8px;
+            height: 40px;
+            box-sizing: border-box;
+        }
+        .sidebar .header .list-item .icon {
+            margin-right: 12px;
+        }
+        .sidebar .header .illustration {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 10px;
+            margin: 10px 0 22px 0;
+            box-sizing: border-box;
+        }
+        .sidebar .main .list-item .description {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 16px;
+            text-align: center;
+            color: #FFFFFF;
+        }
+        .sidebar .main .list-item .icon {
+            margin-right: 12px;
+        }
+        .sidebar .main .list-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 12px 10px;
+            border-radius: 8px;
+            width: 212px;
+            box-sizing: border-box;
+            transition: all ease-in .2s
+        }
+        .sidebar .main .list-item:hover {
+            background: #FF9900;
+            transition: all ease-in .2s
+        }
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        .genre-item {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #FFF;
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .genre-item h2 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+        .genre-item p {
+            margin: 0;
+            font-size: 16px;
+        }
+        #add-book-container {
+            margin-top: 40px;
+        }
+        #add-book-container input, #add-book-container button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .main-content section {
+            display: none;
+        }
+        .main-content section.active {
+            display: block;
+        }
+        #book-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        #book-list li {
+            background-color: #FFF;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #CCC;
+            border-radius: 5px;
+            position: relative;
+        }
+        .delete-button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background-color: #FF0000;
+            color: #FFF;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="header">
+                <div class="list-item">
+                    <a href="#">
+                        <img src="" alt="" class="icon">
+                        <span class="description-header">BookBound</span>
+                    </a>
+                </div>
+                <div class="illustration">
+                    <img src="aseets/th.jpeg" alt="">
+                </div>
+            </div>
+            <div class="main">
+                <div class="list-item">
+                    <a href="#" data-target="dashboard">
+                        <img src="aseets/Vector.svg" alt="" class="icon">
+                        <span class="description">Dashboard</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" data-target="category">
+                        <img src="aseets/history.svg" alt="" class="icon">
+                        <span class="description">Category</span>
+                    </a>
+                </div>
+                <div class="list-item">
+                    <a href="#" data-target="manage-books">
+                        <img src="aseets/Frame 1 (6).svg" alt="" class="icon">
+                        <span class="description">Manage Books</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <section id="dashboard" class="active">
+                <h1>Tambah Buku Baru</h1>
+                <div id="add-book-container">
+                    <input type="text" id="new-title" placeholder="Masukkan judul buku...">
+                    <input type="text" id="new-author" placeholder="Masukkan nama pengarang...">
+                    <input type="text" id="new-genre" placeholder="Masukkan genre buku...">
+                    <button id="add-book-button">Tambah Buku</button>
+                </div>
+            </section>
+            <section id="category">
+                <h1>Genre Buku</h1>
+                <div id="result"></div>
+            </section>
+            <section id="manage-books">
+                <h1>Kelola Buku</h1>
+                <ul id="book-list"></ul>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        const genres = {
+            "Fiksi": {
+                description: "Genre yang mencakup cerita imajinatif, tidak berdasarkan kejadian nyata."
+            },
+            "Non-Fiksi": {
+                description: "Genre yang berisi informasi faktual dan pengetahuan nyata."
+            },
+            "Misteri": {
+                description: "Genre yang melibatkan teka-teki atau kejahatan yang perlu dipecahkan."
+            },
+            "Romansa": {
+                description: "Genre yang berfokus pada hubungan romantis dan cinta."
+            },
+            "Sains Fiksi": {
+                description: "Genre yang mengeksplorasi konsep ilmiah dan teknologi futuristik."
+            },
+            "Fantasi": {
+                description: "Genre yang mencakup elemen magis dan dunia imajiner."
+            },
+            "Horor": {
+                description: "Genre yang bertujuan untuk menakuti atau mengejutkan pembaca."
+            },
+            "Biografi": {
+                description: "Genre yang menceritakan kisah hidup seseorang."
+            },
+            "Sejarah": {
+                description: "Genre yang membahas peristiwa masa lalu dan tokoh-tokoh bersejarah."
+            },
+            "Puisi": {
+                description: "Genre yang menggunakan bahasa estetis dan imajinatif untuk mengekspresikan ide atau emosi."
+            }
+        };
+
+        const resultDiv = document.getElementById('result');
+
+        function displayGenres() {
+            let result = '';
+            for (const [genre, info] of Object.entries(genres)) {
+                result += `
+                    <div class="genre-item">
+                        <h2>${genre}</h2>
+                        <p>${info.description}</p>
+                    </div>
+                `;
+            }
+            resultDiv.innerHTML = result;
+        }
+        displayGenres();
+
+        const addBookButton = document.getElementById('add-book-button');
+        const newTitleInput = document.getElementById('new-title');
+        const newAuthorInput = document.getElementById('new-author');
+        const newGenreInput = document.getElementById('new-genre');
+        const bookList = document.getElementById('book-list');
+        const books = [];
+
+        addBookButton.addEventListener('click', function() {
+            const newTitle = newTitleInput.value.trim();
+            const newAuthor = newAuthorInput.value.trim();
+            const newGenre = newGenreInput.value.trim();
+
+            if (newTitle && newAuthor && newGenre) {
+                if (!genres[newGenre]) {
+                    genres[newGenre] = {
+                        description: `Genre baru ditambahkan: ${newGenre}`
+                    };
+                    displayGenres();
+                }
+
+                const newBook = {
+                    title: newTitle,
+                    author: newAuthor,
+                    genre: newGenre
+                };
+
+                books.push(newBook);
+                updateBookList();
+
+                alert('Buku baru berhasil ditambahkan!');
+                newTitleInput.value = '';
+                newAuthorInput.value = '';
+                newGenreInput.value = '';
+            } else {
+                alert('Harap isi semua bidang input!');
+            }
+        });
+
+        function updateBookList() {
+            bookList.innerHTML = '';
+
+            books.forEach((book, index) => {
+                const bookItem = document.createElement('li');
+                bookItem.innerHTML = `
+                    <strong>Judul:</strong> ${book.title} <br>
+                    <strong>Pengarang:</strong> ${book.author} <br>
+                    <strong>Genre:</strong> ${book.genre}
+                    <button class="delete-button" onclick="deleteBook(${index})">Hapus</button>
+                `;
+                bookList.appendChild(bookItem);
+            });
+        }
+
+        function deleteBook(index) {
+            books.splice(index, 1);
+            updateBookList();
+        }
+
+        const sidebarLinks = document.querySelectorAll('.sidebar .list-item a');
+        const sections = document.querySelectorAll('.main-content section');
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const target = this.getAttribute('data-target');
+
+                sections.forEach(section => {
+                    if (section.id === target) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
