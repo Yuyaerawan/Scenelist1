@@ -7,32 +7,33 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            color: #343a40;
+            background-color: #e0f7fa;
+            color: #333;
             margin: 0;
             padding: 0;
         }
         .container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 50px auto;
             padding: 20px;
             background-color: #ffffff;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            border-radius: 15px;
         }
         .menu {
             position: fixed;
             top: 10px;
             left: 10px;
-            background-color: #007bff;
+            background-color: #00796b;
             color: #ffffff;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 30px;
             cursor: pointer;
             z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .menu:hover {
-            background-color: #0056b3;
+            background-color: #004d40;
         }
         .menu-content {
             display: none;
@@ -40,8 +41,8 @@
             top: 40px;
             left: 10px;
             background-color: #ffffff;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
+            border: 1px solid #bdbdbd;
+            border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 10px;
             z-index: 1001;
@@ -49,7 +50,7 @@
         .menu-content a {
             display: block;
             margin: 5px 0;
-            color: #007bff;
+            color: #00796b;
             text-decoration: none;
             font-size: 1.1em;
         }
@@ -58,20 +59,21 @@
         }
         h1 {
             text-align: center;
-            color: #343a40;
+            color: #00796b;
             margin-bottom: 20px;
-            font-size: 2em;
-            border-bottom: 2px solid #007bff;
+            font-size: 2.5em;
+            border-bottom: 2px solid #004d40;
             padding-bottom: 10px;
         }
         input {
             width: 100%;
             padding: 12px 15px;
             margin-bottom: 20px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
+            border: 1px solid #bdbdbd;
+            border-radius: 30px;
             box-sizing: border-box;
             font-size: 16px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         ul {
             list-style-type: none;
@@ -82,18 +84,61 @@
             padding: 15px;
             border-bottom: 1px solid #ddd;
             transition: background-color 0.3s, transform 0.2s;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         li:hover {
-            background-color: #f1f1f1;
+            background-color: #e0f2f1;
             transform: scale(1.01);
         }
         .description {
-            color: #6c757d;
+            color: #757575;
             font-size: 0.95em;
             margin-top: 5px;
         }
         strong {
             font-size: 1.1em;
+        }
+        /* Additional styles for new features */
+        .profile {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .profile h2 {
+            margin: 10px 0 0 0;
+            color: #00796b;
+        }
+        .recommendations, .news {
+            margin-top: 30px;
+        }
+        .recommendations h2, .news h2 {
+            margin-bottom: 20px;
+            color: #00796b;
+            font-size: 1.5em;
+            border-bottom: 1px solid #004d40;
+            padding-bottom: 10px;
+        }
+        .recommendations ul, .news ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .recommendations li, .news li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .recommendations li:hover, .news li:hover {
+            background-color: #e0f2f1;
         }
     </style>
 </head>
@@ -113,7 +158,11 @@
         <a href="#adventure">Adventure</a>
     </div>
     <div class="container">
-        <h1>Movie List</h1>
+        <h1>Scenelist</h1>
+        <div class="profile">
+            <img src="user-profile.jpg" alt="User Profile">
+            <h2>User Name</h2>
+        </div>
         <input type="text" id="genreInput" placeholder="Search by genre" oninput="filterMovies()">
         <ul id="movieList">
             <li data-genre="Sci-Fi" id="sci-fi">
@@ -193,6 +242,32 @@
                 <p class="description">During a preview tour, a theme park suffers a major power breakdown that allows its cloned dinosaur exhibits to run amok.</p>
             </li>
         </ul>
+        <div class="recommendations">
+            <h2>Recommendations</h2>
+            <ul id="recommendationList">
+                <li>
+                    <strong>Recommended Movie 1</strong>
+                    <p class="description">Description of the recommended movie 1.</p>
+                </li>
+                <li>
+                    <strong>Recommended Movie 2</strong>
+                    <p class="description">Description of the recommended movie 2.</p>
+                </li>
+            </ul>
+        </div>
+        <div class="news">
+            <h2>Movie News</h2>
+            <ul id="newsList">
+                <li>
+                    <strong>News Title 1</strong>
+                    <p class="description">Brief description of news article 1.</p>
+                </li>
+                <li>
+                    <strong>News Title 2</strong>
+                    <p class="description">Brief description of news article 2.</p>
+                </li>
+            </ul>
+        </div>
     </div>
     <script>
         function filterMovies() {
@@ -224,6 +299,46 @@
             const menuContent = document.getElementById('menuContent');
             menuContent.style.display = menuContent.style.display === 'none' || menuContent.style.display === '' ? 'block' : 'none';
         }
+
+        function loadRecommendations() {
+            // Function to load recommended movies based on user's preferences
+            // This is a placeholder, replace with actual logic to fetch recommendations
+            const recommendations = [
+                { title: 'The Matrix', description: 'A computer hacker learns about the true nature of his reality.' },
+                { title: 'Mad Max: Fury Road', description: 'In a post-apocalyptic wasteland, Max teams up with Furiosa to escape from a warlord.' }
+            ];
+
+            const recommendationList = document.getElementById('recommendationList');
+            recommendationList.innerHTML = '';
+            recommendations.forEach(rec => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${rec.title}</strong><p class="description">${rec.description}</p>`;
+                recommendationList.appendChild(li);
+            });
+        }
+
+        function loadNews() {
+            // Function to load latest movie news
+            // This is a placeholder, replace with actual logic to fetch news
+            const news = [
+                { title: 'New Marvel Movie Announced', description: 'Marvel Studios announces the next movie in the Avengers series.' },
+                { title: 'Oscar Nominations Revealed', description: 'The nominations for the 2024 Oscars have been revealed.' }
+            ];
+
+            const newsList = document.getElementById('newsList');
+            newsList.innerHTML = '';
+            news.forEach(article => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>${article.title}</strong><p class="description">${article.description}</p>`;
+                newsList.appendChild(li);
+            });
+        }
+
+        // Call functions to load recommendations and news on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadRecommendations();
+            loadNews();
+        });
     </script>
 </body>
 </html>
