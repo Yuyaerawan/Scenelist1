@@ -1,7 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8"><!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scenelist</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .menu:hover {
+            background-color: #0056b3;
+        }
+        .menu-content {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            z-index: 1001;
+        }
+        .menu-content a {
+            display: block;
+            margin: 5px 0;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+        .menu-content a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        li:hover {
+            background-color: #f1f1f1;
+            transform: scale(1.01);
+        }
+        .description {
+            color: #6c757d;
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+        strong {
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu" onclick="toggleMenu()">Menu</div>
+    <div class="menu-content" id="menuContent">
+        <h2>Daftar Isi</h2>
+        <a href="#sci-fi">Sci-Fi</a>
+        <a href="#action">Action</a>
+        <a href="#crime">Crime</a>
+        <a href="#drama">Drama</a>
+        <a href="#comedy">Comedy</a>
+        <a href="#horror">Horror</a>
+        <a href="#fantasy">Fantasy</a>
+        <a href="#animation">Animation</a>
+        <a href="#romance">Romance</a>
+        <a href="#adventure">Adventure</a>
+    </div>
+    <div class="container">
+        <h1>Movie List</h1>
+        <input type="text" id="genreInput" placeholder="Search by genre" oninput="filterMovies()">
+        <ul id="movieList">
+            <li data-genre="Sci-Fi" id="sci-fi">
+                <strong>Inception - Sci-Fi</strong>
+                <p class="description">A thief who steals corporate secrets through the use of dream-sharing technology.</p>
+            </li>
+            <li data-genre="Action" id="action">
+                <strong>The Dark Knight - Action</strong>
+                <p class="description">When the menace known as the Joker emerges, Batman must accept one of the greatest psychological and physical tests.</p>
+            </li>
+            <li data-genre="Sci-Fi">
+                <strong>Interstellar - Sci-Fi</strong>
+                <p class="description">A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.</p>
+            </li>
+            <li data-genre="Crime" id="crime">
+                <strong>Pulp Fiction - Crime</strong>
+                <p class="description">The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.</p>
+            </li>
+            <li data-genre="Crime">
+                <strong>The Godfather - Crime</strong>
+                <p class="description">The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.</p>
+            </li>
+            <li data-genre="Drama" id="drama">
+                <strong>The Shawshank Redemption - Drama</strong>
+                <p class="description">Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.</p>
+            </li>
+            <li data-genre="Drama">
+                <strong>Forrest Gump - Drama</strong>
+                <p class="description">The presidencies of Kennedy and Johnson, the Vietnam War, the Watergate scandal and other historical events unfold from the perspective of an Alabama man with an IQ of 75.</p>
+            </li>
+            <li data-genre="Comedy" id="comedy">
+                <strong>The Grand Budapest Hotel - Comedy</strong>
+                <p class="description">A writer encounters the owner of an aging high-class hotel, who tells him of his early years serving as a lobby boy in the hotel's glorious years under an exceptional concierge.</p>
+            </li>
+            <li data-genre="Comedy">
+                <strong>Superbad - Comedy</strong>
+                <p class="description">Two co-dependent high school seniors are forced to deal with separation anxiety after their plan to stage a booze-soaked party goes awry.</p>
+            </li>
+            <li data-genre="Horror" id="horror">
+                <strong>The Shining - Horror</strong>
+                <p class="description">A family heads to an isolated hotel for the winter where a sinister presence influences the father into violence, while his psychic son sees horrific forebodings from both past and future.</p>
+            </li>
+            <li data-genre="Horror">
+                <strong>Get Out - Horror</strong>
+                <p class="description">A young African-American man visits his white girlfriend's parents for the weekend, where his simmering uneasiness about their reception of him eventually reaches a boiling point.</p>
+            </li>
+            <li data-genre="Fantasy" id="fantasy">
+                <strong>The Lord of the Rings: The Fellowship of the Ring - Fantasy</strong>
+                <p class="description">A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.</p>
+            </li>
+            <li data-genre="Fantasy">
+                <strong>Harry Potter and the Sorcerer's Stone - Fantasy</strong>
+                <p class="description">An orphaned boy enrolls in a school of wizardry, where he learns the truth about himself, his family, and the terrible evil that haunts the magical world.</p>
+            </li>
+            <li data-genre="Animation" id="animation">
+                <strong>Toy Story - Animation</strong>
+                <p class="description">A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy's room.</p>
+            </li>
+            <li data-genre="Animation">
+                <strong>Spirited Away - Animation</strong>
+                <p class="description">During her family's move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits, and where humans are changed into beasts.</p>
+            </li>
+            <li data-genre="Romance" id="romance">
+                <strong>The Notebook - Romance</strong>
+                <p class="description">A poor yet passionate young man falls in love with a rich young woman, giving her a sense of freedom, but they are soon separated because of their social differences.</p>
+            </li>
+            <li data-genre="Romance">
+                <strong>Pride and Prejudice - Romance</strong>
+                <p class="description">Sparks fly when spirited Elizabeth Bennet meets single, rich, and proud Mr. Darcy. But Mr. Darcy reluctantly finds himself falling in love with a woman beneath his class. Can each overcome their own pride and prejudice?</p>
+            </li>
+            <li data-genre="Adventure" id="adventure">
+                <strong>Indiana Jones and the Raiders of the Lost Ark - Adventure</strong>
+                <p class="description">In 1936, archaeologist and adventurer Indiana Jones is hired by the U.S. government to find the Ark of the Covenant before Adolf Hitler's Nazis can obtain its awesome powers.</p>
+            </li>
+            <li data-genre="Adventure">
+                <strong>Jurassic Park - Adventure</strong>
+                <p class="description">During a preview tour, a theme park suffers a major power breakdown that allows its cloned dinosaur exhibits to run amok.</p>
+            </li>
+        </ul>
+    </div>
+    <script>
+        function filterMovies() {
+            const genreInput = document.getElementById('genreInput').value.toLowerCase();
+            const movies = document.querySelectorAll('#movieList li');
+            const genres = new Set();
+
+            movies.forEach(movie => {
+                const genre = movie.getAttribute('data-genre').toLowerCase();
+                if (genre.includes(genreInput)) {
+                    genres.add(movie.getAttribute('data-genre'));
+                }
+            });
+
+            movies.forEach(movie => {
+                if (genres.has(movie.getAttribute('data-genre'))) {
+                    movie.style.display = '';
+                } else {
+                    movie.style.display = 'none';
+                }
+            });
+        }
+
+        function scrollToTOC() {
+            document.getElementById('toc').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleMenu() {
+            const menuContent = document.getElementById('menuContent');
+            menuContent.style.display = menuContent.style.display === 'none' || menuContent.style.display === '' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scenelist</title>
     <style>
