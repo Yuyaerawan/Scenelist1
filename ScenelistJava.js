@@ -1,40 +1,25 @@
-// script.js
-document.addEventListener('DOMContentLoaded', function() {
-    const movies = [
-        {
-            title: 'The Shawshank Redemption',
-            year: 1994,
-            description: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.'
-        },
-        {
-            title: 'The Godfather',
-            year: 1972,
-            description: 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.'
-        },
-        {
-            title: 'The Dark Knight',
-            year: 2008,
-            description: 'When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.'
+function filterMovies() {
+    const genreInput = document.getElementById('genreInput').value.toLowerCase();
+    const movies = document.querySelectorAll('#movieList li');
+    const genres = new Set();
+
+    movies.forEach(movie => {
+        const genre = movie.getAttribute('data-genre').toLowerCase();
+        if (genre.includes(genreInput)) {
+            genres.add(movie.getAttribute('data-genre'));
         }
-    ];
-
-    const movieList = document.getElementById('movie-list');
-
-    movies.forEach(function(movie) {
-        const listItem = document.createElement('li');
-
-        const title = document.createElement('h2');
-        title.textContent = movie.title;
-        listItem.appendChild(title);
-
-        const year = document.createElement('p');
-        year.textContent = `Year: ${movie.year}`;
-        listItem.appendChild(year);
-
-        const description = document.createElement('p');
-        description.textContent = movie.description;
-        listItem.appendChild(description);
-
-        movieList.appendChild(listItem);
     });
-});
+
+    movies.forEach(movie => {
+        if (genres.has(movie.getAttribute('data-genre'))) {
+            movie.style.display = '';
+        } else {
+            movie.style.display = 'none';
+        }
+    });
+}
+
+function toggleMenu() {
+    const menuContent = document.getElementById('menuContent');
+    menuContent.style.display = menuContent.style.display === 'none' || menuContent.style.display === '' ? 'block' : 'none';
+}
